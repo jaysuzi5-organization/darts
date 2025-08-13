@@ -87,7 +87,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Users API",
+    title="Darts API",
     version="1.0.0",
     openapi_url="/api/v1/darts/openapi.json",
     docs_url="/api/v1/darts/docs",
