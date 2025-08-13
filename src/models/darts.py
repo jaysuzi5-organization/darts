@@ -21,8 +21,10 @@ class darts(Base):
     Attributes:
         id (int): Primary key, unique identifier for the record.
         username (str): Unique username, up to 50 characters. Cannot be null.
-        email (str): Unique email address, up to 120 characters. Cannot be null.
-        full_name (str | None): Optional full name of the user, up to 100 characters.
+        game (str): Required the game played, example: cricket.
+        game_type (str): practice, competition.
+        throws (int | None): Optional number of throws to complete the game.
+        score (int | None): Optional score of the game.
         create_date (datetime): Timestamp when the record was created (UTC).
         update_date (datetime): Timestamp when the record was last updated (UTC).
 
@@ -35,8 +37,10 @@ class darts(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(50), unique=True, nullable=False, index=True)
-    email = Column(String(120), unique=True, nullable=False, index=True)
-    full_name = Column(String(100), nullable=True)
+    game = Column(String(50), unique=False, nullable=False, index=True)
+    game_type = Column(String(50), unique=False, nullable=False, index=False)
+    throws = Column(Integer, nullable=True)
+    score = Column(Integer, nullable=True)
     create_date = Column(DateTime, default=lambda: datetime.now(UTC))
     update_date = Column(
         DateTime,
@@ -51,7 +55,7 @@ class darts(Base):
         Example:
             <darts(id=1, username='johndoe', email='john@example.com')>
         """
-        return f"<darts(id={self.id}, username='{self.username}', email='{self.email}')>"
+        return f"<darts(id={self.id}, username='{self.username}', game='{self.game}')>"
 
 
 class dartsCreate(BaseModel):
@@ -60,8 +64,10 @@ class dartsCreate(BaseModel):
 
     Attributes:
         username (str): Required username for the new user.
-        email (str): Required email address for the new user.
-        full_name (str | None): Optional full name of the user.
+        game (str): Required the game played, example: cricket.
+        game_type (str): practice, competition.
+        throws (int | None): Optional number of throws to complete the game.
+        score (int | None): Optional score of the game.
 
     Example:
         {
@@ -71,5 +77,7 @@ class dartsCreate(BaseModel):
         }
     """
     username: str
-    email: str
-    full_name: Optional[str] = None
+    game: str
+    game_type: str
+    throws: Optional[int] = None
+    score: Optional[int] = None
