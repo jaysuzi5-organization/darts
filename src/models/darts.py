@@ -36,7 +36,7 @@ class darts(Base):
     __tablename__ = "darts"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String(50), unique=True, nullable=False, index=True)
+    username = Column(String(50), unique=False, nullable=False, index=True)
     game = Column(String(50), unique=False, nullable=False, index=True)
     game_type = Column(String(50), unique=False, nullable=False, index=False)
     throws = Column(Integer, nullable=True)
