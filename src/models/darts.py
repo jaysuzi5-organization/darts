@@ -53,7 +53,7 @@ class darts(Base):
         Returns a string representation of the darts instance.
 
         Example:
-            <darts(id=1, username='johndoe', email='john@example.com')>
+            <darts(id=1, username='jcurtis', game='cricket')>
         """
         return f"<darts(id={self.id}, username='{self.username}', game='{self.game}')>"
 
