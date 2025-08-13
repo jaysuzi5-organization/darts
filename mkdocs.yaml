@@ -1,0 +1,11 @@
+site_name: 'darts'
+site_description: 'Main documentation for darts'
+repo_url: https://github.com/jaysuzi5/darts
+edit_uri: edit/main/docs
+
+plugins:
+  - techdocs-core
+
+nav:
+  - Overview:
+      - Getting started: 'docs/index.md'
