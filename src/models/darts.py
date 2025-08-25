@@ -32,7 +32,6 @@ class darts(Base):
         - `create_date` is automatically set when the record is created.
         - `update_date` is automatically updated whenever the record changes.
     """
-
     __tablename__ = "darts"
 
     id = Column(Integer, primary_key=True, index=True)
