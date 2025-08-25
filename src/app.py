@@ -21,6 +21,7 @@ from fastapi import FastAPI
 from sqlalchemy import text
 from contextlib import asynccontextmanager
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 import framework.db
 from models.darts import Base
 from api import health, info, darts
@@ -41,6 +42,7 @@ else:
     logger.addHandler(handler)
     app_middleware = []
     otel_enabled = False
+
 
 
 @asynccontextmanager
@@ -100,6 +102,14 @@ if os.getenv("TESTING") != "true":
         app.add_middleware(mw)
     if otel_enabled:
         FastAPIInstrumentor.instrument_app(app)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Register routes
 app.include_router(health.router, tags=["Health"])
