@@ -25,6 +25,7 @@ class darts(Base):
         game_type (str): practice, competition.
         throws (int | None): Optional number of throws to complete the game.
         score (int | None): Optional score of the game.
+        max_score (int | None): Optional maximum score with the game.
         create_date (datetime): Timestamp when the record was created (UTC).
         update_date (datetime): Timestamp when the record was last updated (UTC).
 
@@ -40,6 +41,7 @@ class darts(Base):
     game_type = Column(String(50), unique=False, nullable=False, index=False)
     throws = Column(Integer, nullable=True)
     score = Column(Integer, nullable=True)
+    max_score = Column(Integer, nullable=True)
     create_date = Column(DateTime, default=lambda: datetime.now(UTC))
     update_date = Column(
         DateTime,
@@ -67,12 +69,16 @@ class dartsCreate(BaseModel):
         game_type (str): practice, competition.
         throws (int | None): Optional number of throws to complete the game.
         score (int | None): Optional score of the game.
+        max_score (int | None): Optional maximum score within the game.
 
     Example:
         {
             "username": "johndoe",
-            "email": "john@example.com",
-            "full_name": "John Doe"
+            "game": "score training",
+            "game_type": "practice",
+            "throws": 10,
+            "score": 56,
+            "max_score": 100
         }
     """
     username: str
@@ -80,3 +86,4 @@ class dartsCreate(BaseModel):
     game_type: str
     throws: Optional[int] = None
     score: Optional[int] = None
+    max_score: Optional[int] = None
