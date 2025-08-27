@@ -6,8 +6,9 @@ This module defines:
 - The Pydantic schema for validating API requests when creating a darts.
 
 """
+from decimal import Decimal
 
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy import Column, DateTime, Integer, String, Double
 from framework.db import Base
 from datetime import datetime, UTC
 from pydantic import BaseModel
@@ -25,7 +26,8 @@ class darts(Base):
         game_type (str): practice, competition.
         throws (int | None): Optional number of throws to complete the game.
         score (int | None): Optional score of the game.
-        max_score (int | None): Optional maximum score with the game.
+        max_3_dart_score (int | None): Optional maximum score within the game.
+        avg_3_dart_score (double | None): Optional average 3 dart score within the game.
         create_date (datetime): Timestamp when the record was created (UTC).
         update_date (datetime): Timestamp when the record was last updated (UTC).
 
@@ -41,7 +43,8 @@ class darts(Base):
     game_type = Column(String(50), unique=False, nullable=False, index=False)
     throws = Column(Integer, nullable=True)
     score = Column(Integer, nullable=True)
-    max_score = Column(Integer, nullable=True)
+    max_3_dart_score = Column(Integer, nullable=True)
+    avg_3_dart_score = Column(Double, nullable=True)
     create_date = Column(DateTime, default=lambda: datetime.now(UTC))
     update_date = Column(
         DateTime,
@@ -69,7 +72,8 @@ class dartsCreate(BaseModel):
         game_type (str): practice, competition.
         throws (int | None): Optional number of throws to complete the game.
         score (int | None): Optional score of the game.
-        max_score (int | None): Optional maximum score within the game.
+        max_3_dart_score (int | None): Optional maximum score within the game.
+        avg_3_dart_score (float | None): Optional average 3 dart score within the game.
 
     Example:
         {
@@ -78,7 +82,9 @@ class dartsCreate(BaseModel):
             "game_type": "practice",
             "throws": 10,
             "score": 56,
-            "max_score": 100
+            "max_3_dart_score": 100,
+            "avg_3_dart_score": 43.2
+            "
         }
     """
     username: str
@@ -86,4 +92,5 @@ class dartsCreate(BaseModel):
     game_type: str
     throws: Optional[int] = None
     score: Optional[int] = None
-    max_score: Optional[int] = None
+    max_3_dart_score: Optional[int] = None
+    avg_3_dart_score: Optional[float] = None
